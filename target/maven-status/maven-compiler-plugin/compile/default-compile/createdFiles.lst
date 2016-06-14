@@ -1,8 +1,13 @@
 net/ddns/gongorg/superboothportals/CommandExecutor.class
 net/ddns/gongorg/superboothportals/Logger.class
+minecraft/spigot/community/michel_0/api/Attribute.class
 net/ddns/gongorg/superboothportals/Plugin.class
+minecraft/spigot/community/michel_0/api/AttributeModifier.class
+minecraft/spigot/community/michel_0/api/ReflectionUntils.class
 net/ddns/gongorg/superboothportals/PlayerListener.class
 net/ddns/gongorg/superboothportals/Storage.class
+minecraft/spigot/community/michel_0/api/ItemAttributes.class
 net/ddns/gongorg/superboothportals/BlockListener$1.class
+minecraft/spigot/community/michel_0/api/Slot.class
 net/ddns/gongorg/superboothportals/BlockListener.class
 net/ddns/gongorg/superboothportals/Portal.class
