@@ -53,7 +53,6 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
     public void onEnable() {
         configurePlugin();
         org.bukkit.plugin.PluginManager pm = getServer().getPluginManager();
-        pm.registerEvents(new PlayerListener(this), this);
         getCommand("fancy").setExecutor(new CommandExecutor(this));
 	addRecipes();
     }
@@ -76,67 +75,150 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
         // LEGS      3     4     5       6
         // BOOTS     1     1     2       3
 	//
-	ItemStack helmet = new ItemStack(Material.LEATHER_HELMET);
-	ItemStack chestPlate = new ItemStack(Material.LEATHER_CHESTPLATE);
-	ItemStack leggings = new ItemStack(Material.LEATHER_LEGGINGS);
-	ItemStack boots = new ItemStack(Material.LEATHER_BOOTS);
-	
+	ItemStack item;
+	ShapelessRecipe recipe;
+	//
+	// main class from Item Attributes API
+	//
+	AttributeModifier armor;
+	ItemAttributes attr;
 	//
 	// GOLD + LEATHER parts
 	//
 	// modify attributes so that leather parts have same bonuses as
 	// golden ones
 	//
-	ItemAttributes attr  = new ItemAttributes();
-	//attr.getFromStack(helmet);
 	
-	AttributeModifier armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 2.0, UUID.randomUUID());
+	item = new ItemStack(Material.LEATHER_HELMET);
+	attr  = new ItemAttributes();
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 2.0, UUID.randomUUID());
 	attr.addModifier(armor);
-	helmet = attr.apply(helmet);
-	
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_HELMET);
+	recipe.addIngredient(Material.GOLD_HELMET);
+	getServer().addRecipe(recipe);
+
+	item = new ItemStack(Material.LEATHER_CHESTPLATE);
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 5.0, UUID.randomUUID());	
 	attr.addModifier(armor);
-	chestPlate = attr.apply(chestPlate);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
+	recipe.addIngredient(Material.GOLD_CHESTPLATE);
+	getServer().addRecipe(recipe);
 
+	item = new ItemStack(Material.LEATHER_LEGGINGS);
 	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 5.0, UUID.randomUUID());	
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 3.0, UUID.randomUUID());	
 	attr.addModifier(armor);
-	leggings = attr.apply(leggings);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_LEGGINGS);
+	recipe.addIngredient(Material.GOLD_LEGGINGS);
+	getServer().addRecipe(recipe);
 
+	item = new ItemStack(Material.LEATHER_BOOTS);
 	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 5.0, UUID.randomUUID());	
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 1.0, UUID.randomUUID());	
 	attr.addModifier(armor);
-	boots = attr.apply(boots);
-	
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_BOOTS);
+	recipe.addIngredient(Material.GOLD_BOOTS);
+	getServer().addRecipe(recipe);
 
-	ShapedRecipe helmetRecipe = new ShapedRecipe(helmet);
-	ShapedRecipe chestPlateRecipe = new ShapedRecipe(chestPlate);
-	ShapedRecipe leggingsRecipe = new ShapedRecipe(leggings);
-	ShapedRecipe bootsRecipe = new ShapedRecipe(boots);
+	//
+	// IRON
+	//
+	item = new ItemStack(Material.LEATHER_HELMET);
+	attr  = new ItemAttributes();
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 2.0, UUID.randomUUID());
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_HELMET);
+	recipe.addIngredient(Material.IRON_HELMET);
+	getServer().addRecipe(recipe);
 
-	// all share the same shape	
-	String r1 = " ab";
-	helmetRecipe.shape(r1);
-	chestPlateRecipe.shape(r1);
-	leggingsRecipe.shape(r1);
-	bootsRecipe.shape(r1);
+	item = new ItemStack(Material.LEATHER_CHESTPLATE);
+	attr  = new ItemAttributes();
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 5.0, UUID.randomUUID());	
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
+	recipe.addIngredient(Material.IRON_CHESTPLATE);
+	getServer().addRecipe(recipe);
 
-	helmetRecipe.setIngredient('a',Material.GOLD_HELMET);
-	helmetRecipe.setIngredient('b',Material.LEATHER_HELMET);
-	getServer().addRecipe(helmetRecipe);
+	item = new ItemStack(Material.LEATHER_LEGGINGS);
+	attr  = new ItemAttributes();
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 4.0, UUID.randomUUID());	
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_LEGGINGS);
+	recipe.addIngredient(Material.IRON_LEGGINGS);
+	getServer().addRecipe(recipe);
 
-	chestPlateRecipe.setIngredient('a',Material.GOLD_CHESTPLATE);
-	chestPlateRecipe.setIngredient('b',Material.LEATHER_CHESTPLATE);
-	getServer().addRecipe(chestPlateRecipe);
+	item = new ItemStack(Material.LEATHER_BOOTS);
+	attr  = new ItemAttributes();
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 1.0, UUID.randomUUID());	
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_BOOTS);
+	recipe.addIngredient(Material.IRON_BOOTS);
+	getServer().addRecipe(recipe);
 
-	leggingsRecipe.setIngredient('a',Material.GOLD_LEGGINGS);
-	leggingsRecipe.setIngredient('b',Material.LEATHER_LEGGINGS);
-	getServer().addRecipe(leggingsRecipe);
 
-	bootsRecipe.setIngredient('a',Material.GOLD_BOOTS);
-	bootsRecipe.setIngredient('b',Material.LEATHER_BOOTS);
-	getServer().addRecipe(bootsRecipe);
+	//
+	// DIAMOND
+	//
+	item = new ItemStack(Material.LEATHER_HELMET);
+	attr  = new ItemAttributes();
+	//attr.getFromStack(new ItemStack(Material.DIAMOND_HELMET));
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 3.0, UUID.randomUUID());
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_HELMET);
+	recipe.addIngredient(Material.DIAMOND_HELMET);
+	getServer().addRecipe(recipe);
+
+	item = new ItemStack(Material.LEATHER_CHESTPLATE);
+	attr  = new ItemAttributes();
+	//attr.getFromStack(new ItemStack(Material.DIAMOND_CHESTPLATE));
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 8.0, UUID.randomUUID());	
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
+	recipe.addIngredient(Material.DIAMOND_CHESTPLATE);
+	getServer().addRecipe(recipe);
+
+	item = new ItemStack(Material.LEATHER_LEGGINGS);
+	attr  = new ItemAttributes();
+	//attr.getFromStack(new ItemStack(Material.DIAMOND_LEGGINGS));
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 6.0, UUID.randomUUID());	
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_LEGGINGS);
+	recipe.addIngredient(Material.DIAMOND_LEGGINGS);
+	getServer().addRecipe(recipe);
+
+	item = new ItemStack(Material.LEATHER_BOOTS);
+	attr  = new ItemAttributes();
+	//attr.getFromStack(new ItemStack(Material.DIAMOND_BOOTS));
+	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 3.0, UUID.randomUUID());	
+	attr.addModifier(armor);
+	item = attr.apply(item);
+	recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(Material.LEATHER_BOOTS);
+	recipe.addIngredient(Material.DIAMOND_BOOTS);
+	getServer().addRecipe(recipe);
 
     }
 }

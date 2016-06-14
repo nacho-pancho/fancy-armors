@@ -1,7 +1,8 @@
-/datos/workspace/super-booth-portals/src/main/java/net/ddns/gongorg/superboothportals/Portal.java
-/datos/workspace/super-booth-portals/src/main/java/net/ddns/gongorg/superboothportals/Storage.java
-/datos/workspace/super-booth-portals/src/main/java/net/ddns/gongorg/superboothportals/PlayerListener.java
-/datos/workspace/super-booth-portals/src/main/java/net/ddns/gongorg/superboothportals/BlockListener.java
-/datos/workspace/super-booth-portals/src/main/java/net/ddns/gongorg/superboothportals/SuperBoothPortals.java
-/datos/workspace/super-booth-portals/src/main/java/net/ddns/gongorg/superboothportals/Logger.java
-/datos/workspace/super-booth-portals/src/main/java/net/ddns/gongorg/superboothportals/CommandExecutor.java
+/datos/workspace/fancy-armors/src/main/java/net/ddns/gongorg/fancyarmors/Plugin.java
+/datos/workspace/fancy-armors/src/main/java/minecraft/spigot/community/michel_0/api/AttributeModifier.java
+/datos/workspace/fancy-armors/src/main/java/minecraft/spigot/community/michel_0/api/ItemAttributes.java
+/datos/workspace/fancy-armors/src/main/java/minecraft/spigot/community/michel_0/api/ReflectionUntils.java
+/datos/workspace/fancy-armors/src/main/java/minecraft/spigot/community/michel_0/api/Attribute.java
+/datos/workspace/fancy-armors/src/main/java/minecraft/spigot/community/michel_0/api/Slot.java
+/datos/workspace/fancy-armors/src/main/java/net/ddns/gongorg/fancyarmors/Logger.java
+/datos/workspace/fancy-armors/src/main/java/net/ddns/gongorg/fancyarmors/CommandExecutor.java
