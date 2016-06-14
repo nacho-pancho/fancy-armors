@@ -1,4 +1,4 @@
-package net.ddns.gongorg.superboothportals;
+package net.ddns.gongorg.fancyarmors;
 
 import java.io.*;
 import java.nio.file.Files;
