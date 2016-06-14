@@ -1,0 +1,6 @@
+name: FancyArmor
+main: net.ddns.gongorg.fancyarmors.Plugin
+version: 0.1
+commands: 
+  fancy:
+    description: Main command. Type as is for help
