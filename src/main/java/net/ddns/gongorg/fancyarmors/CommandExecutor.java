@@ -33,22 +33,6 @@ public class CommandExecutor implements org.bukkit.command.CommandExecutor {
             }
             String subcmd = args[0];
 
-
-	    ItemStack item = /* ...some item you want to modify... */;
-
-	    // First you need a new instance of ItemAttributes
-	    ItemAttributes attributeModifiers = new ItemAttributes();
-
-	    // Then you need to define your modifiers
-	    AttributeModifier speedModifier = new AttributeModifier(Attribute.MOVEMENT_SPEED, "AdditionalSpeed", Slot.MAIN_HAND, 0, 1.0d, UUID.randomUUID());
-	    AttributeModifier attackModifier = new AttributeModifier(Attribute.ATTACK_DAMAGE, "AdditionalDamage", Slot.MAIN_HAND, 0, 4.0d, UUID.randomUUID());
-
-	    // Next is to add these modifiers to the attribut modifiers set
-	    attributeModifiers.addModifier(speedModifier);
-	    attributeModifiers.addModifier(attackModifier);
-
-	    // Finally apply it on a item stack
-	    item = attributeModifiers.apply(item);
             return true;
         } else {
             return false;
