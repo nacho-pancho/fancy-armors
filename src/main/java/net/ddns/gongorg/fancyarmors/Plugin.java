@@ -75,12 +75,12 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
         // LEGS      3     4     5       6
         // BOOTS     1     1     2       3
 	//
-	ItemStack item;
+	ItemStack item,item2;
 	ShapelessRecipe recipe;
 	//
 	// main class from Item Attributes API
 	//
-	AttributeModifier armor;
+	AttributeModifier armor,thoughness;
 	ItemAttributes attr;
 	//
 	// GOLD + LEATHER parts
@@ -88,8 +88,10 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	// modify attributes so that leather parts have same bonuses as
 	// golden ones
 	//
-	
+
 	item = new ItemStack(Material.LEATHER_HELMET);
+	item2 = new ItemStack(Material.GOLD_HELMET);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 2.0, UUID.randomUUID());
 	attr.addModifier(armor);
@@ -100,6 +102,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_CHESTPLATE);
+	item2 = new ItemStack(Material.GOLD_CHESTPLATE);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 5.0, UUID.randomUUID());	
 	attr.addModifier(armor);
@@ -110,6 +114,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_LEGGINGS);
+	item2 = new ItemStack(Material.GOLD_LEGGINGS);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 3.0, UUID.randomUUID());	
 	attr.addModifier(armor);
@@ -120,6 +126,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_BOOTS);
+	item2 = new ItemStack(Material.GOLD_BOOTS);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 1.0, UUID.randomUUID());	
 	attr.addModifier(armor);
@@ -133,6 +141,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	// IRON
 	//
 	item = new ItemStack(Material.LEATHER_HELMET);
+	item2 = new ItemStack(Material.IRON_HELMET);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 2.0, UUID.randomUUID());
 	attr.addModifier(armor);
@@ -143,6 +153,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_CHESTPLATE);
+	item2 = new ItemStack(Material.IRON_CHESTPLATE);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 5.0, UUID.randomUUID());	
 	attr.addModifier(armor);
@@ -153,6 +165,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_LEGGINGS);
+	item2 = new ItemStack(Material.IRON_LEGGINGS);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 4.0, UUID.randomUUID());	
 	attr.addModifier(armor);
@@ -163,6 +177,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_BOOTS);
+	item2 = new ItemStack(Material.IRON_BOOTS);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 1.0, UUID.randomUUID());	
 	attr.addModifier(armor);
@@ -177,10 +193,14 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	// DIAMOND
 	//
 	item = new ItemStack(Material.LEATHER_HELMET);
+	item2 = new ItemStack(Material.DIAMOND_HELMET);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	//attr.getFromStack(new ItemStack(Material.DIAMOND_HELMET));
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 3.0, UUID.randomUUID());
 	attr.addModifier(armor);
+	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
+	attr.addModifier(thoughness);
 	item = attr.apply(item);
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_HELMET);
@@ -188,10 +208,14 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_CHESTPLATE);
+	item2 = new ItemStack(Material.DIAMOND_CHESTPLATE);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	//attr.getFromStack(new ItemStack(Material.DIAMOND_CHESTPLATE));
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 8.0, UUID.randomUUID());	
 	attr.addModifier(armor);
+	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
+	attr.addModifier(thoughness);
 	item = attr.apply(item);
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
@@ -199,10 +223,14 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_LEGGINGS);
+	item2 = new ItemStack(Material.DIAMOND_LEGGINGS);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	//attr.getFromStack(new ItemStack(Material.DIAMOND_LEGGINGS));
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 6.0, UUID.randomUUID());	
 	attr.addModifier(armor);
+	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
+	attr.addModifier(thoughness);
 	item = attr.apply(item);
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_LEGGINGS);
@@ -210,10 +238,14 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	getServer().addRecipe(recipe);
 
 	item = new ItemStack(Material.LEATHER_BOOTS);
+	item2 = new ItemStack(Material.DIAMOND_BOOTS);
+	item.setDurability(item2.getDurability());
 	attr  = new ItemAttributes();
 	//attr.getFromStack(new ItemStack(Material.DIAMOND_BOOTS));
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 3.0, UUID.randomUUID());	
 	attr.addModifier(armor);
+	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
+	attr.addModifier(thoughness);
 	item = attr.apply(item);
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_BOOTS);
