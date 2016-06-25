@@ -9,6 +9,7 @@ import org.bukkit.block.Block;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.*;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import minecraft.spigot.community.michel_0.api.*;
 
@@ -96,6 +97,13 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	attr.addModifier(armor);
 	item = attr.apply(item);
 	item.setDurability(item2.getDurability());
+	if (item.hasItemMeta()) {
+	    ItemMeta meta = item.getItemMeta();
+	    if (meta.hasDisplayName()) {
+		meta.setDisplayName("Fancy gold helmet");
+	    }
+	    item.setItemMeta(meta);
+	}
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_HELMET);
 	recipe.addIngredient(Material.GOLD_HELMET);
@@ -108,6 +116,13 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	attr.addModifier(armor);
 	item = attr.apply(item);
 	item.setDurability(item2.getDurability());
+	if (item.hasItemMeta()) {
+	    ItemMeta meta = item.getItemMeta();
+	    if (meta.hasDisplayName()) {
+		meta.setDisplayName("Fancy gold chest plate");
+	    }
+	    item.setItemMeta(meta);
+	}
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
 	recipe.addIngredient(Material.GOLD_CHESTPLATE);
@@ -120,6 +135,13 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	attr.addModifier(armor);
 	item = attr.apply(item);
 	item.setDurability(item2.getDurability());
+	if (item.hasItemMeta()) {
+	    ItemMeta meta = item.getItemMeta();
+	    if (meta.hasDisplayName()) {
+		meta.setDisplayName("Fancy gold leggings");
+	    }
+	    item.setItemMeta(meta);
+	}
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_LEGGINGS);
 	recipe.addIngredient(Material.GOLD_LEGGINGS);
@@ -132,6 +154,13 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	attr.addModifier(armor);
 	item = attr.apply(item);
 	item.setDurability(item2.getDurability());
+	if (item.hasItemMeta()) {
+	    ItemMeta meta = item.getItemMeta();
+	    if (meta.hasDisplayName()) {
+		meta.setDisplayName("Fancy gold boots");
+	    }
+	    item.setItemMeta(meta);
+	}
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_BOOTS);
 	recipe.addIngredient(Material.GOLD_BOOTS);
