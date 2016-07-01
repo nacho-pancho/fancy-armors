@@ -1,8 +1,10 @@
 net/ddns/gongorg/fancyarmors/CommandExecutor.class
 minecraft/spigot/community/michel_0/api/Attribute.class
-minecraft/spigot/community/michel_0/api/AttributeModifier.class
 net/ddns/gongorg/fancyarmors/Logger.class
+minecraft/spigot/community/michel_0/api/AttributeModifier.class
+net/ddns/gongorg/fancyarmors/DamageListener.class
 minecraft/spigot/community/michel_0/api/ReflectionUntils.class
 net/ddns/gongorg/fancyarmors/Plugin.class
+net/ddns/gongorg/fancyarmors/CraftListener.class
 minecraft/spigot/community/michel_0/api/ItemAttributes.class
 minecraft/spigot/community/michel_0/api/Slot.class

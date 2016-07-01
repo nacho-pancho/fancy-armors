@@ -13,13 +13,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import minecraft.spigot.community.michel_0.api.*;
 
-//import org.bukkit.Location;
-//import org.bukkit.Server;
-//import org.bukkit.World;
-//import org.bukkit.block.Block;
-//import org.bukkit.configuration.file.FileConfiguration;
-//import org.bukkit.entity.Player;
-
 public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 
     /**
@@ -30,7 +23,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
     private String pluginVersion;
     private static final String permissionNode = "fancyarmors.";
     private ResourceBundle i18nResource;
-
+    private List<Recipe> fancyRecipes = new ArrayList<Recipe>();
 
     public void onLoad() {
         org.bukkit.plugin.PluginDescriptionFile pdfFile = this.getDescription();
@@ -55,6 +48,8 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
         configurePlugin();
         org.bukkit.plugin.PluginManager pm = getServer().getPluginManager();
         getCommand("fancy").setExecutor(new CommandExecutor(this));
+	pm.registerEvents(new CraftListener(this), this);	
+	pm.registerEvents(new DamageListener(this), this);	
 	addRecipes();
     }
 
@@ -67,6 +62,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
     }
 
     void addRecipes() {
+	log.debug("Adding recipes.");
 	//
 	// ARMOR BONUSES
 	//
@@ -89,7 +85,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	// modify attributes so that leather parts have same bonuses as
 	// golden ones
 	//
-
+	log.debug("Adding gold stuff.");
 	item = new ItemStack(Material.LEATHER_HELMET);
 	item2 = new ItemStack(Material.GOLD_HELMET);
 	attr  = new ItemAttributes();
@@ -108,6 +104,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_HELMET);
 	recipe.addIngredient(Material.GOLD_HELMET);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_CHESTPLATE);
 	item2 = new ItemStack(Material.GOLD_CHESTPLATE);
@@ -127,6 +124,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
 	recipe.addIngredient(Material.GOLD_CHESTPLATE);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_LEGGINGS);
 	item2 = new ItemStack(Material.GOLD_LEGGINGS);
@@ -146,6 +144,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_LEGGINGS);
 	recipe.addIngredient(Material.GOLD_LEGGINGS);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_BOOTS);
 	item2 = new ItemStack(Material.GOLD_BOOTS);
@@ -165,10 +164,12 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_BOOTS);
 	recipe.addIngredient(Material.GOLD_BOOTS);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	//
 	// IRON
 	//
+	log.debug("Adding iron stuff.");
 	item = new ItemStack(Material.LEATHER_HELMET);
 	item2 = new ItemStack(Material.IRON_HELMET);
 	attr  = new ItemAttributes();
@@ -180,6 +181,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_HELMET);
 	recipe.addIngredient(Material.IRON_HELMET);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_CHESTPLATE);
 	item2 = new ItemStack(Material.IRON_CHESTPLATE);
@@ -193,6 +195,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
 	recipe.addIngredient(Material.IRON_CHESTPLATE);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_LEGGINGS);
 	item2 = new ItemStack(Material.IRON_LEGGINGS);
@@ -206,6 +209,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_LEGGINGS);
 	recipe.addIngredient(Material.IRON_LEGGINGS);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_BOOTS);
 	item2 = new ItemStack(Material.IRON_BOOTS);
@@ -219,14 +223,16 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_BOOTS);
 	recipe.addIngredient(Material.IRON_BOOTS);
 	getServer().addRecipe(recipe);
-
+	fancyRecipes.add(recipe);
 
 	//
 	// DIAMOND
 	//
+	log.debug("Adding diamond stuff.");
 	item = new ItemStack(Material.LEATHER_HELMET);
+	log.debug("Leather helmet durability:" + item.getDurability());
 	item2 = new ItemStack(Material.DIAMOND_HELMET);
-	item.setDurability(item2.getDurability());
+	log.debug("Diamond helmet durability:" + item2.getDurability());
 	attr  = new ItemAttributes();
 	//attr.getFromStack(new ItemStack(Material.DIAMOND_HELMET));
 	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 3.0, UUID.randomUUID());
@@ -234,11 +240,13 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
 	attr.addModifier(thoughness);
 	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
+	item.setDurability((short)(66-430));
+	log.debug("Fancy helmet durability:" + item.getDurability());
 	recipe = new ShapelessRecipe(item);
 	recipe.addIngredient(Material.LEATHER_HELMET);
 	recipe.addIngredient(Material.DIAMOND_HELMET);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_CHESTPLATE);
 	item2 = new ItemStack(Material.DIAMOND_CHESTPLATE);
@@ -255,6 +263,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
 	recipe.addIngredient(Material.DIAMOND_CHESTPLATE);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_LEGGINGS);
 	item2 = new ItemStack(Material.DIAMOND_LEGGINGS);
@@ -271,6 +280,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_LEGGINGS);
 	recipe.addIngredient(Material.DIAMOND_LEGGINGS);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
 	item = new ItemStack(Material.LEATHER_BOOTS);
 	item2 = new ItemStack(Material.DIAMOND_BOOTS);
@@ -287,6 +297,12 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	recipe.addIngredient(Material.LEATHER_BOOTS);
 	recipe.addIngredient(Material.DIAMOND_BOOTS);
 	getServer().addRecipe(recipe);
+	fancyRecipes.add(recipe);
 
+	log.debug("Finished adding recipes.");
+    }
+
+    boolean isFancyRecipe(Recipe r) {
+	return fancyRecipes.contains(r);
     }
 }

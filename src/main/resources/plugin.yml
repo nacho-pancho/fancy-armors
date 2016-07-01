@@ -1,4 +1,4 @@
-name: FancyArmor
+name: FancyArmors
 main: net.ddns.gongorg.fancyarmors.Plugin
 version: 0.1
 commands: 
