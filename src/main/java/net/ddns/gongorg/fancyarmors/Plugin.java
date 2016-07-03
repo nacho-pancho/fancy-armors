@@ -22,7 +22,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
     private String pluginName;
     private String pluginVersion;
     private static final String permissionNode = "fancyarmors.";
-    private ResourceBundle i18nResource;
+    ResourceBundle messages;
     private List<Recipe> fancyRecipes = new ArrayList<Recipe>();
 
     public void onLoad() {
@@ -41,7 +41,7 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
         final String country = conf.getString("locale_country", "");
         log.info("Locale set to " + language + " " + country);
         final Locale locale = new Locale(language, country);
-        i18nResource = ResourceBundle.getBundle("Messages", locale);
+        messages = ResourceBundle.getBundle("Messages", locale);
     }
 
     public void onEnable() {
@@ -86,223 +86,51 @@ public class Plugin extends org.bukkit.plugin.java.JavaPlugin {
 	// golden ones
 	//
 	log.debug("Adding gold stuff.");
-	item = new ItemStack(Material.LEATHER_HELMET);
-	item2 = new ItemStack(Material.GOLD_HELMET);
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 2.0, UUID.randomUUID());
-	attr.addModifier(armor);
+	addRecipe(Material.LEATHER_HELMET,Material.GOLD_HELMET,             Slot.HEAD ,2.0, 0.0);
+	addRecipe(Material.LEATHER_CHESTPLATE,Material.GOLD_CHESTPLATE,     Slot.CHEST,5.0, 0.0);
+	addRecipe(Material.LEATHER_LEGGINGS,Material.GOLD_LEGGINGS,         Slot.LEGS ,3.0, 0.0);
+	addRecipe(Material.LEATHER_BOOTS,Material.GOLD_BOOTS,               Slot.FEET ,1.0, 0.0);
+
+	addRecipe(Material.LEATHER_HELMET,Material.CHAINMAIL_HELMET,        Slot.HEAD ,2.0, 0.0);
+	addRecipe(Material.LEATHER_CHESTPLATE,Material.CHAINMAIL_CHESTPLATE,Slot.CHEST,5.0, 0.0);
+	addRecipe(Material.LEATHER_LEGGINGS,Material.CHAINMAIL_LEGGINGS,    Slot.LEGS ,4.0, 0.0);
+	addRecipe(Material.LEATHER_BOOTS,Material.CHAINMAIL_BOOTS,          Slot.FEET ,1.0, 0.0);
+
+	addRecipe(Material.LEATHER_HELMET,Material.IRON_HELMET,             Slot.HEAD ,2.0, 0.0);
+	addRecipe(Material.LEATHER_CHESTPLATE,Material.IRON_CHESTPLATE,     Slot.CHEST,6.0, 0.0);
+	addRecipe(Material.LEATHER_LEGGINGS,Material.IRON_LEGGINGS,         Slot.LEGS ,5.0, 0.0);
+	addRecipe(Material.LEATHER_BOOTS,Material.IRON_BOOTS,               Slot.FEET ,2.0, 0.0);
+
+	addRecipe(Material.LEATHER_HELMET,Material.DIAMOND_HELMET,          Slot.HEAD ,3.0, 2.0);
+	addRecipe(Material.LEATHER_CHESTPLATE,Material.DIAMOND_CHESTPLATE,  Slot.CHEST,8.0, 2.0);
+	addRecipe(Material.LEATHER_LEGGINGS,Material.DIAMOND_LEGGINGS,      Slot.LEGS ,6.0, 2.0);
+	addRecipe(Material.LEATHER_BOOTS,Material.DIAMOND_BOOTS,            Slot.FEET ,3.0, 2.0);
+
+    }
+
+    private void addRecipe(Material targetMaterial, Material sourceMaterial, Slot slot, double armor, double though) {
+	ItemStack item = new ItemStack(targetMaterial);
+	ItemAttributes attr  = new ItemAttributes();
+	AttributeModifier aux = new AttributeModifier(Attribute.ARMOR, "generic.armor", slot, 0, armor, UUID.randomUUID());
+	attr.addModifier(aux);
+	aux = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", slot, 0, though, UUID.randomUUID());
+	attr.addModifier(aux);
 	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	if (item.hasItemMeta()) {
-	    ItemMeta meta = item.getItemMeta();
-	    if (meta.hasDisplayName()) {
-		meta.setDisplayName("Fancy gold helmet");
-	    }
-	    item.setItemMeta(meta);
-	}
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_HELMET);
-	recipe.addIngredient(Material.GOLD_HELMET);
+	ShapelessRecipe recipe = new ShapelessRecipe(item);
+	recipe.addIngredient(targetMaterial);
+	recipe.addIngredient(sourceMaterial);
 	getServer().addRecipe(recipe);
 	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_CHESTPLATE);
-	item2 = new ItemStack(Material.GOLD_CHESTPLATE);
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 5.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	if (item.hasItemMeta()) {
-	    ItemMeta meta = item.getItemMeta();
-	    if (meta.hasDisplayName()) {
-		meta.setDisplayName("Fancy gold chest plate");
-	    }
-	    item.setItemMeta(meta);
-	}
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
-	recipe.addIngredient(Material.GOLD_CHESTPLATE);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_LEGGINGS);
-	item2 = new ItemStack(Material.GOLD_LEGGINGS);
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 3.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	if (item.hasItemMeta()) {
-	    ItemMeta meta = item.getItemMeta();
-	    if (meta.hasDisplayName()) {
-		meta.setDisplayName("Fancy gold leggings");
-	    }
-	    item.setItemMeta(meta);
-	}
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_LEGGINGS);
-	recipe.addIngredient(Material.GOLD_LEGGINGS);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_BOOTS);
-	item2 = new ItemStack(Material.GOLD_BOOTS);
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 1.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	if (item.hasItemMeta()) {
-	    ItemMeta meta = item.getItemMeta();
-	    if (meta.hasDisplayName()) {
-		meta.setDisplayName("Fancy gold boots");
-	    }
-	    item.setItemMeta(meta);
-	}
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_BOOTS);
-	recipe.addIngredient(Material.GOLD_BOOTS);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	//
-	// IRON
-	//
-	log.debug("Adding iron stuff.");
-	item = new ItemStack(Material.LEATHER_HELMET);
-	item2 = new ItemStack(Material.IRON_HELMET);
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 2.0, UUID.randomUUID());
-	attr.addModifier(armor);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_HELMET);
-	recipe.addIngredient(Material.IRON_HELMET);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_CHESTPLATE);
-	item2 = new ItemStack(Material.IRON_CHESTPLATE);
-	item.setDurability(item2.getDurability());
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 5.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
-	recipe.addIngredient(Material.IRON_CHESTPLATE);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_LEGGINGS);
-	item2 = new ItemStack(Material.IRON_LEGGINGS);
-	item.setDurability(item2.getDurability());
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 4.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_LEGGINGS);
-	recipe.addIngredient(Material.IRON_LEGGINGS);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_BOOTS);
-	item2 = new ItemStack(Material.IRON_BOOTS);
-	item.setDurability(item2.getDurability());
-	attr  = new ItemAttributes();
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 1.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_BOOTS);
-	recipe.addIngredient(Material.IRON_BOOTS);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	//
-	// DIAMOND
-	//
-	log.debug("Adding diamond stuff.");
-	item = new ItemStack(Material.LEATHER_HELMET);
-	log.debug("Leather helmet durability:" + item.getDurability());
-	item2 = new ItemStack(Material.DIAMOND_HELMET);
-	log.debug("Diamond helmet durability:" + item2.getDurability());
-	attr  = new ItemAttributes();
-	//attr.getFromStack(new ItemStack(Material.DIAMOND_HELMET));
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.HEAD, 0, 3.0, UUID.randomUUID());
-	attr.addModifier(armor);
-	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
-	attr.addModifier(thoughness);
-	item = attr.apply(item);
-	item.setDurability((short)(66-430));
-	log.debug("Fancy helmet durability:" + item.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_HELMET);
-	recipe.addIngredient(Material.DIAMOND_HELMET);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_CHESTPLATE);
-	item2 = new ItemStack(Material.DIAMOND_CHESTPLATE);
-	item.setDurability(item2.getDurability());
-	attr  = new ItemAttributes();
-	//attr.getFromStack(new ItemStack(Material.DIAMOND_CHESTPLATE));
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.CHEST, 0, 8.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
-	attr.addModifier(thoughness);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_CHESTPLATE);
-	recipe.addIngredient(Material.DIAMOND_CHESTPLATE);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_LEGGINGS);
-	item2 = new ItemStack(Material.DIAMOND_LEGGINGS);
-	item.setDurability(item2.getDurability());
-	attr  = new ItemAttributes();
-	//attr.getFromStack(new ItemStack(Material.DIAMOND_LEGGINGS));
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.LEGS, 0, 6.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
-	attr.addModifier(thoughness);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_LEGGINGS);
-	recipe.addIngredient(Material.DIAMOND_LEGGINGS);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	item = new ItemStack(Material.LEATHER_BOOTS);
-	item2 = new ItemStack(Material.DIAMOND_BOOTS);
-	item.setDurability(item2.getDurability());
-	attr  = new ItemAttributes();
-	//attr.getFromStack(new ItemStack(Material.DIAMOND_BOOTS));
-	armor = new AttributeModifier(Attribute.ARMOR, "generic.armor", Slot.FEET, 0, 3.0, UUID.randomUUID());	
-	attr.addModifier(armor);
-	thoughness = new AttributeModifier(Attribute.ARMOR_THOUGHNESS, "generic.armorThoughness", Slot.HEAD, 0, 2.0, UUID.randomUUID());
-	attr.addModifier(thoughness);
-	item = attr.apply(item);
-	item.setDurability(item2.getDurability());
-	recipe = new ShapelessRecipe(item);
-	recipe.addIngredient(Material.LEATHER_BOOTS);
-	recipe.addIngredient(Material.DIAMOND_BOOTS);
-	getServer().addRecipe(recipe);
-	fancyRecipes.add(recipe);
-
-	log.debug("Finished adding recipes.");
     }
 
     boolean isFancyRecipe(Recipe r) {
-	return fancyRecipes.contains(r);
+	if (!(r instanceof ShapelessRecipe)) return false;
+	List<ItemStack> ingredients = ((ShapelessRecipe)r).getIngredientList();
+	for (Recipe cand: fancyRecipes) {
+	    List<ItemStack> aux = ((ShapelessRecipe)cand).getIngredientList();
+	    if (aux.containsAll(ingredients) && ingredients.containsAll(aux))
+		return true;
+	}
+	return false;
     }
 }
